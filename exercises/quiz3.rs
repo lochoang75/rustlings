@@ -16,9 +16,8 @@
 //
 // Execute `rustlings hint quiz3` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
-
 pub struct ReportCard {
+    pub grade_alphabetic: String,
     pub grade: f32,
     pub student_name: String,
     pub student_age: u8,
@@ -26,8 +25,13 @@ pub struct ReportCard {
 
 impl ReportCard {
     pub fn print(&self) -> String {
-        format!("{} ({}) - achieved a grade of {}",
-            &self.student_name, &self.student_age, &self.grade)
+        if self.grade < 0.0 {
+            return format!("{} ({}) - achieved a grade of {}",
+                &self.student_name, &self.student_age, &self.grade_alphabetic);
+        } else {
+            return format!("{} ({}) - achieved a grade of {}",
+                &self.student_name, &self.student_age, &self.grade);
+        }
     }
 }
 
@@ -41,6 +45,7 @@ mod tests {
             grade: 2.1,
             student_name: "Tom Wriggle".to_string(),
             student_age: 12,
+            grade_alphabetic: "".to_string(),
         };
         assert_eq!(
             report_card.print(),
@@ -52,9 +57,10 @@ mod tests {
     fn generate_alphabetic_report_card() {
         // TODO: Make sure to change the grade here after you finish the exercise.
         let report_card = ReportCard {
-            grade: 2.1,
+            grade: -1.0,
             student_name: "Gary Plotter".to_string(),
             student_age: 11,
+            grade_alphabetic: "A+".to_string(),
         };
         assert_eq!(
             report_card.print(),
